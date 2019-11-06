@@ -32,9 +32,6 @@ function loadDataFromLocalStorage() {
 }
 
 function saveToLocalStorage(event) {
-    const input = event.target
-    console.log(event.target);
-    console.log(input.name);
-    
+    const input = event.target  
     localStorage.setItem(input.name, input.value)
 }
