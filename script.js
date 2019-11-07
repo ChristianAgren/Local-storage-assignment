@@ -25,12 +25,14 @@ function setupEventListeners() {
 function loadDataFromLocalStorage() {
     const   inputs = form.querySelectorAll('input'),
             textarea = document.querySelector('textarea');
-    let     newform = JSON.parse(localStorage.getItem(form.id));
+    let     newform = JSON.parse(localStorage.getItem(form.id)) || "";
 
-    inputs.forEach(input => {
-            input.value = newform[input.name] || ""
-    });
-    textarea.value = newform[textarea.id] || ""
+    if (newform != "") {
+        inputs.forEach(input => {
+                input.value = newform[input.name] || ""
+        });
+        textarea.value = newform[textarea.id] || ""
+    }
 }
 
 function saveToLocalStorage(event) {
