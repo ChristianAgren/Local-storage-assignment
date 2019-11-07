@@ -13,25 +13,32 @@ function loadGlobalVariables() {
 }
 
 function setupEventListeners() {
-    const   inputs = form.querySelectorAll('input')
-            textarea = document.querySelector('textarea')
+    const   inputs = form.querySelectorAll('input'),
+            textarea = document.querySelector('textarea');
     
     inputs.forEach(input => {
-        input.addEventListener('input', saveToLocalStorage)
+        input.addEventListener('change', saveToLocalStorage)
     });
-    textarea.addEventListener('input', saveToLocalStorage)
+    textarea.addEventListener('change', saveToLocalStorage)
 }
 
 function loadDataFromLocalStorage() {
-    const   inputs = form.querySelectorAll('input')
-            textarea = document.querySelector('textarea')
+    const   inputs = form.querySelectorAll('input'),
+            textarea = document.querySelector('textarea');
+    let     newform = JSON.parse(localStorage.getItem(form.id));
+
     inputs.forEach(input => {
-        input.value = localStorage.getItem(input.name)
+            input.value = newform[input.name] || ""
     });
-    textarea.value = localStorage.getItem(textarea.id)
+    textarea.value = newform[textarea.id] || ""
 }
 
 function saveToLocalStorage(event) {
-    const input = event.target  
-    localStorage.setItem(input.name, input.value)
+    const   input = event.target;
+	let     newform = localStorage.getItem(form.id);
+
+	newform = newform ? JSON.parse(newform) : {};
+
+    newform[input.name] = input.value;   
+	localStorage.setItem(form.id, JSON.stringify(newform));
 }
